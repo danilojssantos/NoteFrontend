@@ -30,12 +30,12 @@ export default createGlobalStyle`
         text-decoration: none;
     }
 
-    buttom, a {
+    button, a {
         cursor: pointer;
         transition: filter 0.2s;
     }
 
-    buttom:hover, a:hover {
+    button:hover, a:hover {
         filter: brightness(0.9)
     }
 
