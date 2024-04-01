@@ -16,8 +16,37 @@ export const Container = styled.header`
 
     padding: 0 8.0rem;
 
-    background: red;
+    
+`;
+export const Profile = styled.div`
+    display: flex;
+    align-items: center;
+> img{
+    width: 5.6rem;
+    height: 5.6rem;
+    border-radius: 50%;
 
+} 
 
+ > div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.6rem;
+    line-height: 2.4rem;
 
-`
+    span{
+        font-size: 1.4rem;
+        color: ${({theme})=> theme.COLORS.GRAY_100};
+
+    }
+
+    strong{
+        font-size: 1.8rem;
+        color: ${({theme})=> theme.COLORS.WHITE};
+
+    }
+  
+
+}
+
+`;
