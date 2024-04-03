@@ -2,7 +2,7 @@ import { FiMail, FiLock } from 'react-icons/fi'
 //importação de componetes
 import { Input} from '../../components/Input'
 import {Button} from '../../components/Button'
-import { Container, Form } from './styles'
+import { Container, Form ,Background} from './styles'
 
 
 export function Signin(){
@@ -33,6 +33,8 @@ export function Signin(){
                 </a>    
                 
             </Form>
+
+            <Background/>
 
         </Container>
     )
