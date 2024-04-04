@@ -1,3 +1,5 @@
+//importaçao de terceiros 
+import { Link } from 'react-router-dom'
 import { FiMail, FiLock, FiUser } from 'react-icons/fi'
 //importação de componetes
 import { Input} from '../../components/Input'
@@ -34,10 +36,9 @@ export function SignUp(){
 
                 <Button title="Cadastrar"/>
 
-                <a href='#'>
+                <Link to="/">
                     Volta para o Login
-                </a>    
-                
+                </Link>
             </Form>
 
           
