@@ -12,3 +12,24 @@ export const Container = styled.div`
     "content";
 
 `;
+
+export const Form = styled.form`
+    max-width: 55rem;
+    margin: 3.8rem auto;
+
+    >header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 3.6rem;
+
+        a{
+            font-size: 2.0rem;
+            color: ${({theme })=> theme.COLORS.GRAY_100}
+        }
+    }
+
+
+
+`;
