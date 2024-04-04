@@ -16,8 +16,10 @@ export function NoteItem({isNew, value, onClick, ...rest}){
             <button
             type='button' 
              onClick={onClick}
+             //verifica se add applica uma class add de sofor delete aplica delete
+             className={isNew ? 'button-add' : 'button-delete' }
             >
-                {isNew ? <FiPlus/> : <Fix/>}
+                {isNew ? <FiPlus/> : <FiX/>}
             </button>
 
 
