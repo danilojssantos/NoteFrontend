@@ -1,5 +1,5 @@
 //importaçao de terceiros 
-
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiMail, FiLock } from 'react-icons/fi';
 //importação de componetes
@@ -11,8 +11,13 @@ import { Container, Form ,Background} from './styles'
 
 export function SignIn(){
 
-    const data = useAuth();
-    console.log("meu contexto =>", data);
+    const {signIn} = useAuth();
+  //  console.log("meu contexto =>", data);
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+  function handleSignIn(){
+    signIn({email, password})
+  }
 
    
     return(
@@ -27,6 +32,7 @@ export function SignIn(){
                  placeholder="E-mail"
                  type="text"
                  icon={FiMail} 
+                 onChange={e => setEmail(e.target.value)}
                     
                 />
 
@@ -34,10 +40,11 @@ export function SignIn(){
                  placeholder="Senha"
                  type="password"
                  icon={FiLock}
+                 onChange={e => setPassword(e.target.value)}
                    
                 />
 
-                <Button title="Entrar"/>
+                <Button title="Entrar" onClick={handleSignIn}/>
 
                 <Link to="/register">
                     Criar Conta
