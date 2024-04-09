@@ -1,14 +1,19 @@
 //importaçao de terceiros 
-import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 import { FiMail, FiLock } from 'react-icons/fi';
 //importação de componetes
+import { useAuth } from '../../hooks/auth';
 import { Input} from '../../components/Input'
 import {Button} from '../../components/Button'
 import { Container, Form ,Background} from './styles'
 
 
 export function SignIn(){
+
+    const data = useAuth();
+    console.log("meu contexto =>", data);
+
    
     return(
         <Container>
