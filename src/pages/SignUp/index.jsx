@@ -1,6 +1,6 @@
 //importaçao de terceiros 
 import { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link ,useNavigate} from 'react-router-dom'
 import { FiMail, FiLock, FiUser } from 'react-icons/fi'
 //importação de componetes
 import { api } from  '../../serviçes/api.js'
@@ -14,6 +14,8 @@ export function SignUp(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const navigate = useNavigate();
+
     function handleSignUp(){
        // console.log(name, email, password)
 
@@ -26,11 +28,12 @@ export function SignUp(){
        api.post("/users", {name, email,password})
        .then(()=> {
             alert("Usuario cadastrado com sucesso!")
+            navigate("/")
        })
        .catch(error => {
-         if (error.reponse) {
+         if (error.response) {
             //busca resposta da api 
-            alert(error.reponse.data.message)
+            alert(error.response.data.message)
             
          }else{
             alert("não foi possivel cadastrar")
