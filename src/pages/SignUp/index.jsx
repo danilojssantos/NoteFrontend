@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { FiMail, FiLock, FiUser } from 'react-icons/fi'
 //importação de componetes
+import { api } from  '../../serviçes/api.js'
 import { Input} from '../../components/Input'
 import {Button} from '../../components/Button'
 import { Container, Form ,Background} from './styles'
@@ -14,7 +15,27 @@ export function SignUp(){
     const [password, setPassword] = useState("");
 
     function handleSignUp(){
-        console.log(name, email, password)
+       // console.log(name, email, password)
+
+       if (!name || !email || !password) {
+        //quando função encontra um return para nao deixa prosseguir
+       return alert("Preencha todos os campos")
+        
+       }
+
+       api.post("/users", {name, email,password})
+       .then(()=> {
+            alert("Usuario cadastrado com sucesso!")
+       })
+       .catch(error => {
+         if (error.reponse) {
+            //busca resposta da api 
+            alert(error.reponse.data.message)
+            
+         }else{
+            alert("não foi possivel cadastrar")
+         }
+       })
 
     }
     return(
