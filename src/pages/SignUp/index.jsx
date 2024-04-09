@@ -1,4 +1,5 @@
 //importaçao de terceiros 
+import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { FiMail, FiLock, FiUser } from 'react-icons/fi'
 //importação de componetes
@@ -8,6 +9,14 @@ import { Container, Form ,Background} from './styles'
 
 
 export function SignUp(){
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    function handleSignUp(){
+        console.log(name, email, password)
+
+    }
     return(
         <Container>
             <Background/>
@@ -18,23 +27,26 @@ export function SignUp(){
                 <Input 
                  placeholder="Nome"
                  type="text"
-                 icon={FiUser}    
+                 icon={FiUser}  
+                 onChange={e =>setName(e.target.value)}  
                 />
 
 
                 <Input 
                  placeholder="E-mail"
                  type="text"
-                 icon={FiMail}    
+                 icon={FiMail}  
+                 onChange={e =>setEmail(e.target.value)}  
                 />
 
                 <Input 
                  placeholder="Senha"
                  type="password"
-                 icon={FiLock}    
+                 icon={FiLock} 
+                 onChange={e =>setPassword(e.target.value)}   
                 />
 
-                <Button title="Cadastrar"/>
+                <Button title="Cadastrar" onClick={handleSignUp}/>
 
                 <Link to="/">
                     Volta para o Login
