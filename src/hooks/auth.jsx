@@ -10,10 +10,12 @@ function AuthProvider({children}){
 
         //pega resposta da api
         try{
-            const response = await api.post("/sessions", {email, password});
-            const {user, token} = response.data;
-
-            api.defaults.headers.authorization.data =`Barer ${token}`;
+            
+            const response = await api.post("/sessions", { email, password });
+            const { user, token } = response.data;
+            
+            //api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+            api.defaults.headers.authorization =`Barer ${token}`;
             setData({user, token})
             // console.log(response)
         }catch(error){
