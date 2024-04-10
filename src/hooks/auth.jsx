@@ -1,15 +1,21 @@
-import{createContext, useContext } from 'react';
+import{createContext, useContext, useState } from 'react';
 import {api} from '../serviçes/api'
 export const authContext = createContext({});
 
 function AuthProvider({children}){
+    const [data, setData] = useState({});
     //função de autendificação 
 
     async function signIn({email,password}){
+
         //pega resposta da api
         try{
             const response = await api.post("/sessions", {email, password});
-            console.log(response)
+            const {user, token} = response.data;
+
+            api.defaults.headers.authorization.data =`Barer ${token}`;
+            setData({user, token})
+            // console.log(response)
         }catch(error){
             if (error.response) {
                 alert(error.response.data.message)
@@ -22,7 +28,7 @@ function AuthProvider({children}){
 
     }
     return(
-        <authContext.Provider value={{signIn}}>
+        <authContext.Provider value={{signIn, user: data.user}}>
             {children}
         </authContext.Provider>
     )
