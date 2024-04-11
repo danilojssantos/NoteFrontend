@@ -1,4 +1,4 @@
-import{createContext, useContext, useState } from 'react';
+import{createContext, useContext, useState, useEffect } from 'react';
 import {api} from '../serviçes/api'
 export const authContext = createContext({});
 
@@ -13,7 +13,12 @@ function AuthProvider({children}){
             
             const response = await api.post("/sessions", { email, password });
             const { user, token } = response.data;
-            
+            //local  storage para manter uma sessao
+            //pega o usario e que vem objeto e converte para json
+            localStorage.setItem("@notes:user", JSON.stringify(user));
+           //salva token no localStorage
+            localStorage.setItem("@notes:token", token);
+
             //api.defaults.headers.common['Authorization'] = `Bearer ${token}`
             api.defaults.headers.authorization =`Barer ${token}`;
             setData({user, token})
@@ -29,8 +34,37 @@ function AuthProvider({children}){
 
 
     }
+    function signOut(){
+        //remove os dados do lacalStorage
+        localStorage.removeItem("@notes:token")
+        localStorage.removeItem("@notes:user")
+
+        setData({})
+
+    }
+
+    useEffect(()=>{
+        const token  = localStorage.getItem("@notes:token");
+        const user  = localStorage.getItem("@notes:user");
+
+        if (token && user) {
+            api.defaults.headers.authorization =`Barer ${token}`;
+
+            setData({
+                token,
+                user: JSON.parse(user)
+            })
+
+
+        }
+
+    },[]);
     return(
-        <authContext.Provider value={{signIn, user: data.user}}>
+        <authContext.Provider value={{
+            signIn, 
+            user: data.user,
+            signOut
+            }}>
             {children}
         </authContext.Provider>
     )
@@ -41,4 +75,4 @@ function useAuth(){
     return context;
 }
 
-export {AuthProvider , useAuth}
+export {AuthProvider , useAuth} 
