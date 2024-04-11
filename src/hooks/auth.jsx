@@ -20,7 +20,7 @@ function AuthProvider({children}){
             localStorage.setItem("@notes:token", token);
 
             //api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-            api.defaults.headers.authorization =`Barer ${token}`;
+            api.defaults.headers.common['Authorization'] = `Barer ${token}`;
             setData({user, token})
             // console.log(response)
         }catch(error){
@@ -48,8 +48,8 @@ function AuthProvider({children}){
         const user  = localStorage.getItem("@notes:user");
 
         if (token && user) {
-            api.defaults.headers.authorization =`Barer ${token}`;
 
+            api.defaults.headers.common['Authorization'] = `Barer ${token}`;
             setData({
                 token,
                 user: JSON.parse(user)
