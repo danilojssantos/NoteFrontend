@@ -12,13 +12,40 @@ import {Button} from "../../components/Button"
 
 export function Profile(){
     //inicia o hook de autentificação
-    const {user} = useAuth();
+    const {user,updateProfile} = useAuth();
     //passar o valor 
+    
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
     const [passwordOld, setPasswordOld] = useState();
     const [passwordNew, setPasswordNew] = useState();
+    const [avatar, setAvatar] = useState(user.avatar);
+    const [avatarFile, setAvatarFile] = useState(null);
+
+    function handleChangeAvatar(event){
+        //extrai o arquivo
+        const file = event.target.files[0];
+        setAvatarFile(file);
+
+        const imagePreview = URL.createObjectURL(file);
+        setAvatar(imagePreview)
+
+
+    }
     
+    async function handleUpdate(){
+        //passa tudo para um objeto 
+        const user ={
+            name,
+            email,
+            password: passwordNew,
+            old_password: passwordOld,
+
+        }
+        
+        //passa para função o objeto 
+        await updateProfile({ user , avatarFile});
+    }
     return(
         <Container>
             <header>
@@ -29,7 +56,7 @@ export function Profile(){
             <Form>
                 <Avatar>
                     <img 
-                    src="https://github.com/danilojssantos.png"
+                    src={avatar}
                     alt="foto do usuário" />
                      <label htmlFor="avatar">
                     <FiCamera/>
@@ -37,6 +64,7 @@ export function Profile(){
                     <input 
                         id="avatar"
                         type="file"
+                        onChange={handleChangeAvatar}
                     
                     />
 
@@ -74,8 +102,8 @@ export function Profile(){
                     icon={FiLock}  
                     onChange={e=> setPasswordNew(e.target.value)}
                 />    
-
-                <Button title="Salvar"/>
+                                       
+                <Button title="Salvar" onClick={handleUpdate}/>
                      
 
             </Form>
