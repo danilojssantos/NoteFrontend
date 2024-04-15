@@ -1,5 +1,5 @@
 import{createContext, useContext, useState, useEffect } from 'react';
-import {api} from '../serviçes/api'
+import {api} from '../services/api'
 export const authContext = createContext({});
 
 function AuthProvider({children}){
@@ -57,6 +57,7 @@ function AuthProvider({children}){
 
                 const response = await api.patch("users/avatar", fileUploadForm);
                 user.avatar = response.data.avatar;
+                //console.log(user.avatar)
 
             }
             await api.put("/users", user);

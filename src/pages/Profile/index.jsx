@@ -1,10 +1,11 @@
 import {Link} from "react-router-dom"
 import { useState } from "react";
-
+import {api} from '../../services/api'
 import { Container , Form, Avatar} from "./styles";
 import{FiArrowLeft,FiUser, FiMail, FiLock, FiCamera}from "react-icons/fi"
 
 import {useAuth} from"../../hooks/auth"
+import  avatarPlaceholder  from '../../assets/perfil.png' ;
 import {Input} from "../../components/Input"
 import {Button} from "../../components/Button"
 
@@ -19,20 +20,14 @@ export function Profile(){
     const [email, setEmail] = useState(user.email);
     const [passwordOld, setPasswordOld] = useState();
     const [passwordNew, setPasswordNew] = useState();
-    const [avatar, setAvatar] = useState(user.avatar);
+
+    //verefica se o avatar tem se nao tiver tras placeholder
+    const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
+    //const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
+    const [avatar, setAvatar] = useState(avatarUrl);
     const [avatarFile, setAvatarFile] = useState(null);
 
-    function handleChangeAvatar(event){
-        //extrai o arquivo
-        const file = event.target.files[0];
-        setAvatarFile(file);
-
-        const imagePreview = URL.createObjectURL(file);
-        setAvatar(imagePreview)
-
-
-    }
-    
+   
     async function handleUpdate(){
         //passa tudo para um objeto 
         const user ={
@@ -46,6 +41,18 @@ export function Profile(){
         //passa para função o objeto 
         await updateProfile({ user , avatarFile});
     }
+
+    function handleChangeAvatar(event){
+        //extrai o arquivo
+        const file = event.target.files[0];
+        setAvatarFile(file);
+        //cria o Preview
+        const imagePreview = URL.createObjectURL(file);
+        setAvatar(imagePreview)
+
+
+    }
+    
     return(
         <Container>
             <header>

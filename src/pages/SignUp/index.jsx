@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link ,useNavigate} from 'react-router-dom'
 import { FiMail, FiLock, FiUser } from 'react-icons/fi'
 //importação de componetes
-import { api } from  '../../serviçes/api.js'
+import { api } from  '../../services/api.js'
 import { Input} from '../../components/Input'
 import {Button} from '../../components/Button'
 import { Container, Form ,Background} from './styles'
