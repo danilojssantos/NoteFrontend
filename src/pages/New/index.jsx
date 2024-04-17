@@ -45,6 +45,22 @@ export function New(){
     }
 
     async function handleNewNote(){
+        //validaçoes 
+        if (!title) {
+            return alert ("Campo titulo e obrigatorio")
+        }
+        if (newLink) {
+            return alert("Você deixou um Link no campo para adicionar");
+            
+        }
+        if (newTag) {
+            return alert("Você deixou uma tag no campo para adicionar, mas não adicinou");
+            
+        }
+
+      
+
+        //salva no banco
         await api.post("/notes", {
             title,
             description,
